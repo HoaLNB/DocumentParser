@@ -119,6 +119,7 @@
             this.btExport.TabIndex = 8;
             this.btExport.Text = "Export";
             this.btExport.UseVisualStyleBackColor = true;
+            this.btExport.Click += new System.EventHandler(this.btExport_Click);
             // 
             // MainMenu
             // 

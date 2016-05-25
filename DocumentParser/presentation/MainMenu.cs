@@ -72,5 +72,16 @@ namespace DocumentParser.presentation
         {
             this.Close();
         }
+
+        private void btExport_Click(object sender, EventArgs e)
+        {
+            FileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = Constants.WORD_FILE_DIALOG_FILTER;
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.ShowDialog();
+
+            string docxFilePath = saveFileDialog.FileName;
+            QuestionService.exportQuestionDatabaseToDocx(docxFilePath);
+        }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using DocumentParser.common;
 using DocumentParser.models;
 
@@ -24,7 +23,7 @@ namespace DocumentParser.services
         public static DataSet selectDataSet(string tableName)
         {
             var connection = new SqlConnection(connectionstring);
-            var dataAdapter = new SqlDataAdapter("select * from" + tableName, connection);
+            var dataAdapter = new SqlDataAdapter("select * from " + tableName, connection);
             var ds = new DataSet();
             dataAdapter.Fill(ds);
             return ds;
@@ -190,13 +189,40 @@ namespace DocumentParser.services
         /// Read the database to get question list.
         /// </summary>
         /// <returns></returns>
-        public List<Question> getQuestionListFromDatabase()
+        public static List<Question> getQuestionListFromDatabase()
         {
             List<Question> questionList = new List<Question>();
             DataSet questionDataSet =  selectDataSet(Constants.DTB_QUESTIONS);
-            foreach (var table in questionDataSet.Tables)
+            DataTable dataTable = questionDataSet.Tables[0];
+            DataTableReader dataTableReader = dataTable.CreateDataReader();
+            if (dataTableReader.HasRows)
             {
-                
+                while (dataTableReader.Read())
+                {
+                    Question question = new Question();
+                    question.fillOptionList(); //to avoid null list
+                    question.Qid = dataTableReader[Constants.PARAM_QUESTION_QID].ToString().Trim();
+                    question.QuestionContent.OptionText = dataTableReader[Constants.PARAM_QUESTION_QUESTION].ToString().Trim();
+                    question.QuestionContent.ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_IMAGE].ToString().Trim();
+                    question.OptionList[0].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTA_TXT].ToString().Trim();
+                    question.OptionList[0].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTA_IMG].ToString().Trim();
+                    question.OptionList[1].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTB_TXT].ToString().Trim();
+                    question.OptionList[1].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTB_IMG].ToString().Trim();
+                    question.OptionList[2].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTC_TXT].ToString().Trim();
+                    question.OptionList[2].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTC_IMG].ToString().Trim();
+                    question.OptionList[3].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTD_TXT].ToString().Trim();
+                    question.OptionList[3].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTD_IMG].ToString().Trim();
+                    question.OptionList[4].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTE_TXT].ToString().Trim();
+                    question.OptionList[4].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTE_IMG].ToString().Trim();
+                    question.OptionList[5].OptionText = dataTableReader[Constants.PARAM_QUESTION_OPTF_TXT].ToString().Trim();
+                    question.OptionList[5].ImageLinkText = dataTableReader[Constants.PARAM_QUESTION_OPTF_IMG].ToString().Trim();
+                    question.Answer = dataTableReader[Constants.PARAM_QUESTION_ANSWER].ToString().Trim();
+                    question.Mark = double.Parse(dataTableReader[Constants.PARAM_QUESTION_MARK].ToString().Trim());
+                    question.CourseId = dataTableReader[Constants.PARAM_COURSE_COURSE_ID].ToString().Trim();
+                    question.Unit = dataTableReader[Constants.PARAM_QUESTION_UNIT].ToString().Trim();
+                    question.MixChoices = Constants.TRUE_TEXT.Equals(dataTableReader[Constants.PARAM_QUESTION_MIXCHOICES].ToString().Trim()) ? true:false;
+                    questionList.Add(question);
+                }
             }
             return questionList;
         }

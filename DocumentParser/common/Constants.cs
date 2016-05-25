@@ -4,6 +4,12 @@
     {
         public static char BEGIN_LETTER = 'A';
         public static char AFTER_END_LETTER = 'G';
+        public static int QUESTION_TABLE_ROW_EXCEPT_OPTIONS = 6;
+        public static int QUESTION_TABLE_COLUMN = 2;
+        public static string LINE_BREAK_CHARACTER = "\u2028\n";
+
+        //Export table properties
+        public static int QUESTION_TABLE_BORDER = 1;
 
         //Database name
         public static string DTB_COURSES = "Courses";
@@ -25,7 +31,20 @@
         public static string PARAM_QUESTION_OPT_FIRST = "Opt";
         public static string PARAM_QUESTION_OPT_TXT = "_Txt";
         public static string PARAM_QUESTION_OPT_IMG = "_Img";
-        
+
+        public static string PARAM_QUESTION_OPTA_TXT = "OptA_Txt";
+        public static string PARAM_QUESTION_OPTA_IMG = "OptA_Img";
+        public static string PARAM_QUESTION_OPTB_TXT = "OptB_Txt";
+        public static string PARAM_QUESTION_OPTB_IMG = "OptB_Img";
+        public static string PARAM_QUESTION_OPTC_TXT = "OptC_Txt";
+        public static string PARAM_QUESTION_OPTC_IMG = "OptC_Img";
+        public static string PARAM_QUESTION_OPTD_TXT = "OptD_Txt";
+        public static string PARAM_QUESTION_OPTD_IMG = "OptD_Img";
+        public static string PARAM_QUESTION_OPTE_TXT = "OptE_Txt";
+        public static string PARAM_QUESTION_OPTE_IMG = "OptE_Img";
+        public static string PARAM_QUESTION_OPTF_TXT = "OptF_Txt";
+        public static string PARAM_QUESTION_OPTF_IMG = "OptF_Img";
+
         public static string QUERY_CHECK_COURSEID = "select 1 from Courses where CourseID = '";
         public static string QUERY_CHECK_QID = "select 1 from Questions where Qid = '";
         public static string PATTERN_IMG = @"[file:"; 
@@ -41,6 +60,8 @@
 
         public static string YES_CHOICE = "Yes";
         public static string NO_CHOICE = "No";
+        public static string TRUE_TEXT = "True";
+        public static string FALSE_TEXT = "False";
 
         public static string WORD_FILE_DIALOG_FILTER = @"Word 2007 or later document|*.docx";
 

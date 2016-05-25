@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="common\Constants.cs" />
     <Compile Include="common\ResponseResult.cs" />
+    <Compile Include="common\StringPair.cs" />
     <Compile Include="common\StringUtils.cs" />
     <Compile Include="models\Course.cs" />
     <Compile Include="models\Option.cs" />

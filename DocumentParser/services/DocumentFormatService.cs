@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentParser.common;
@@ -106,12 +107,85 @@ namespace DocumentParser.services
         }
 
         /// <summary>
-        /// Export the data to docx file. s
+        /// Export the data to docx file. 
         /// </summary>
         /// <param name="questionList"></param>
-        public void exportToDocx(List<Question> questionList )
+        public void writeQuestionListToDocx(List<Question> questionList, string docxFilePath)
         {
-            
+            WordprocessingDocument wordProc = WordprocessingDocument.Create(docxFilePath, WordprocessingDocumentType.Document, true);
+            MainDocumentPart mainPart = wordProc.AddMainDocumentPart();
+            mainPart.Document = new Document();
+            Body body = mainPart.Document.AppendChild(new Body());
+            foreach (var question in questionList)
+            {
+                Table table = new Table();
+                table = createTableFromQuestion(question);
+                body.AppendChild(table);
+                body.AppendChild(new Paragraph(new Run(new Text("\n"))));
+            }
+            wordProc.Close();
+        }
+
+        /// <summary>
+        /// Create a table from a question.
+        /// </summary>
+        /// <param name="question"></param>
+        /// <returns></returns>
+        public Table createTableFromQuestion(Question question)
+        {
+            Table table = new Table();
+            TableProperties props = new TableProperties(
+            new TableBorders(
+            new TopBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            },
+            new BottomBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            },
+            new LeftBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            },
+            new RightBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            },
+            new InsideHorizontalBorder()
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            },
+            new InsideVerticalBorder
+            {
+                Val = new EnumValue<BorderValues>(BorderValues.Single),
+                Size = 1
+            }));
+            table.AppendChild<TableProperties>(props);
+            List<StringPair> stringPairListToExport = question.getListOfElement();
+            //loop. i is rowCounter
+            for (int i = 0; i < stringPairListToExport.Count; i++)
+            {
+                string firstCellString = stringPairListToExport[i].FirstString;
+                string secondCellString = stringPairListToExport[i].SecondString;
+                if (secondCellString.Contains(Constants.PATTERN_IMG))
+                {
+                    string imagePath = StringUtils.extractImageLinkFromContent(secondCellString).Substring(StringUtils.extractImageLinkFromContent(secondCellString).LastIndexOf(@"\")+1);
+                    secondCellString = StringUtils.removeImgFromContent(secondCellString) + Constants.PATTERN_IMG + imagePath + Constants.PATTERN_IMG_END_BRACKET;
+                }
+                var tableRow = new TableRow();
+                var firstCell = new TableCell(new Paragraph(new Run(new Text(firstCellString))));
+                tableRow.AppendChild(firstCell);
+                var secondCell = new TableCell(new Paragraph(new Run(new Text(secondCellString))));
+                tableRow.AppendChild(secondCell);
+                table.AppendChild(tableRow);
+            }
+            return table;
         }
     }
 }

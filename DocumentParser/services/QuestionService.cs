@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security;
 using DocumentParser.common;
 using DocumentParser.models;
 
@@ -44,6 +45,17 @@ namespace DocumentParser.services
                 insertResult.RepCode = Constants.RC_SQL_INSERT_ALL_SUCCESSFUL;
             }
             return insertResult;
+        }
+
+        /// <summary>
+        /// Export the questions in database to docx file.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void exportQuestionDatabaseToDocx(string filePath)
+        {
+            List<Question> questionListFromDatabase = DataAccessService.getQuestionListFromDatabase();
+            DocumentFormatService docFormatService = new DocumentFormatService();
+            docFormatService.writeQuestionListToDocx(questionListFromDatabase, filePath);
         }
     }
 }
