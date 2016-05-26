@@ -16,6 +16,8 @@ namespace DocumentParser
         {
 //            TestingWordUtilsODK utilOdk = new TestingWordUtilsODK();
 //            utilOdk.doSomething2();
+//            ExperimentalServiceInterop experiment = new ExperimentalServiceInterop();
+//            experiment.doSomething2();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

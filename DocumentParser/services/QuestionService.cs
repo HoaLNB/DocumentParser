@@ -51,11 +51,12 @@ namespace DocumentParser.services
         /// Export the questions in database to docx file.
         /// </summary>
         /// <param name="filePath"></param>
-        public static void exportQuestionDatabaseToDocx(string filePath)
+        public static ResponseResult exportQuestionDatabaseToDocx(string filePath)
         {
             List<Question> questionListFromDatabase = DataAccessService.getQuestionListFromDatabase();
             DocumentFormatService docFormatService = new DocumentFormatService();
-            docFormatService.writeQuestionListToDocx(questionListFromDatabase, filePath);
+            ResponseResult exportResult = docFormatService.writeQuestionListToDocx(questionListFromDatabase, filePath);
+            return exportResult;
         }
     }
 }

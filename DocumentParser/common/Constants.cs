@@ -7,6 +7,7 @@
         public static int QUESTION_TABLE_ROW_EXCEPT_OPTIONS = 6;
         public static int QUESTION_TABLE_COLUMN = 2;
         public static string LINE_BREAK_CHARACTER = "\u2028\n";
+        public static string TABLE_WIDTH_PERCENTAGE_UNIT = "5000";
 
         //Export table properties
         public static int QUESTION_TABLE_BORDER = 1;
@@ -74,16 +75,21 @@
         public static string RC_SQL_INSERT_ALL_FAIL_PRIMARY_KEY = "RC0013";
         public static string RC_SQL_INSERT_ALL_FAIL_UNKNOWN = "RC0014";
         public static string RC_QUESTION_NOT_FOUND = "RC0015";
+        public static string RC_EXPORT_SUCCESSFUL = "RC0050";
+        public static string RC_EXPORT_UNABLE_TO_WRITE_FILE = "RC0051";
 
         //Response message
 
 
         //Message box
-        public static string MSG_MB_INSERT_ALL_SUCCESSFUL = "All questions were successfully inserted!";
+        public static string MSG_MB_INSERT_ALL_SUCCESSFUL = "All questions were successfully inserted.";
         public static string MSG_MB_INSERT_PARTIAL_FAIL = "The following questions were not inserted:\n";
         public static string MSG_MB_INSERT_PARTIAL_FAIL_AFTER = "\nPlease check the docx file again.";
-        public static string MSG_MB_INSERT_ALL_FAIL = "Insert failed! No question was inserted!";
+        public static string MSG_MB_INSERT_ALL_FAIL = "Insert failed! No question was inserted.";
         public static string MSG_MB_NO_QUESTION = "No question was found in this file.";
+        public static string MSG_MB_EXPORT_SUCCESSFULLY = " was created succesfully.";
+        public static string MSG_MB_EXPORT_FAIL = "Unable to save new file to ";
+        public static string MSG_MB_EXPORT_FAIL_P2 = "\nAnother program is using this file at the moment.";
         
 
     }

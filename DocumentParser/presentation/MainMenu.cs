@@ -11,6 +11,8 @@ namespace DocumentParser.presentation
         public MainMenu()
         {
             StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             InitializeComponent();
         }
 
@@ -81,7 +83,16 @@ namespace DocumentParser.presentation
             saveFileDialog.ShowDialog();
 
             string docxFilePath = saveFileDialog.FileName;
-            QuestionService.exportQuestionDatabaseToDocx(docxFilePath);
+            ResponseResult exportResult = QuestionService.exportQuestionDatabaseToDocx(docxFilePath);
+            if (Constants.RC_EXPORT_SUCCESSFUL.Equals(exportResult.RepCode))
+                MessageBox.Show(
+                    saveFileDialog.FileName.Substring(
+                        saveFileDialog.FileName.LastIndexOf(@"\", StringComparison.Ordinal) + 1) +
+                    Constants.MSG_MB_EXPORT_SUCCESSFULLY);
+            else
+            {
+                MessageBox.Show(Constants.MSG_MB_EXPORT_FAIL + saveFileDialog.FileName + Constants.MSG_MB_EXPORT_FAIL_P2);
+            }
         }
     }
 }

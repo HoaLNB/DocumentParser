@@ -1,4 +1,5 @@
 ﻿using System;
+using DocumentParser.services;
 using Microsoft.Office.Interop.Word;
 
 namespace DocumentParser
@@ -6,7 +7,7 @@ namespace DocumentParser
     /// <summary>
     /// Word Processing utils tool using Office Interop
     /// </summary>
-    public class TestingWordUtilsINTEROP
+    public class ExperimentalServiceInterop
     {
         public void doSomething()
         {
@@ -25,6 +26,12 @@ namespace DocumentParser
             }
             // Close word.
             application.Quit();
+        }
+
+        public void doSomething2()
+        {
+            DocumentFormatService dfs = new DocumentFormatService();
+            dfs.createNewDocxFile(@"D:\Experiment.docx");
         }
     }
 }

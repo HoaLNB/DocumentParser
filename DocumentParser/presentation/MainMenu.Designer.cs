@@ -136,7 +136,7 @@
             this.Controls.Add(this.txtImgFolderPath);
             this.Controls.Add(this.btnSelectFolder);
             this.Name = "MainMenu";
-            this.Text = "MainMenu";
+            this.Text = "Document Parser 0.1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
